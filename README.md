@@ -49,3 +49,22 @@ Route::middleware(['auth:api', 'serafort.permission:org:*'])->group(function () 
     });
 });
 ```
+
+## Contributing
+
+```bash
+composer install
+./vendor/bin/phpunit
+```
+
+Enable the repo's git hooks once per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+The `pre-commit` hook runs `composer validate --strict` before each commit. CI (`.github/workflows/ci.yml`) additionally installs dependencies and runs the full PHPUnit suite on PHP 8.2 and 8.3.
+
+### Security advisory ignores
+
+`composer.json`'s `config.policy.advisories.ignore-id` suppresses a fixed set of PKSA advisories that Composer's dependency resolver would otherwise use to block `composer install`. Every one of them is against `laravel/framework`, pulled in transitively and exclusively by `orchestra/testbench` in `require-dev` (the test toolchain) — no advisory targets a `require` (production) dependency, and `require-dev` is never installed for consumers of this package (`composer require serafort/laravel` excludes it). They're ignored here because, at time of writing, every `laravel/framework` release resolvable within this package's supported range is flagged by at least one of them; narrowing the range further doesn't clear it. Re-run `composer audit` periodically and prune entries from this list once upstream ships a release outside the flagged set.
