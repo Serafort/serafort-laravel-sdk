@@ -1,0 +1,27 @@
+# Dependencies
+/vendor/
+
+# For a library package, composer.lock is not committed — consuming
+# applications pin their own dependency versions via their own lockfile.
+composer.lock
+
+# PHPUnit
+.phpunit.result.cache
+.phpunit.cache/
+/build/
+/coverage/
+clover.xml
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE / editor
+.idea/
+.vscode/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
