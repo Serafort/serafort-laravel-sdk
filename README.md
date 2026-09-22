@@ -49,3 +49,18 @@ Route::middleware(['auth:api', 'serafort.permission:org:*'])->group(function () 
     });
 });
 ```
+
+## Contributing
+
+```bash
+composer install
+./vendor/bin/phpunit
+```
+
+Enable the repo's git hooks once per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+The `pre-commit` hook runs `composer validate --strict` before each commit. CI (`.github/workflows/ci.yml`) additionally installs dependencies and runs the full PHPUnit suite on PHP 8.2 and 8.3.
